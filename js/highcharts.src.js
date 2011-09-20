@@ -4159,7 +4159,8 @@ function Chart(options, callback) {
 
 			staggerLines = horiz && options.labels.staggerLines,
 			reversed = options.reversed,
-			tickmarkOffset = (categories && options.tickmarkPlacement === 'between') ? 0.5 : 0;
+			tickmarkOffset = (categories && options.tickmarkPlacement === 'between') ? 0.5 : 0,
+			minDateTickInterval = options.minDateTickInterval;
 
 		/**
 		 * The Tick class
@@ -4980,10 +4981,16 @@ function Chart(options, callback) {
 					var lessThan = (interval * multiples[multiples.length - 1] +
 								units[i + 1][1]) / 2;
 
-					// break and keep the current unit
-					if (tickInterval <= lessThan) {
-						break;
-					}
+					if (options.isX && options.minDateTickInterval) {
+                        if (tickInterval <= lessThan && units[i][1] >= options.minDateTickInterval) {
+                            break;
+                        }
+                    }
+                    // break and keep the current unit
+                    else if (tickInterval <= lessThan) {
+                        break;
+                    }
+
 				}
 			}
 
