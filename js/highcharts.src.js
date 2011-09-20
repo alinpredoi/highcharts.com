@@ -10217,11 +10217,21 @@ var ColumnSeries = extendClass(Series, {
 		// calculate the width and position of each column based on
 		// the number of column series in the plot, the groupPadding
 		// and the pointPadding options
+		var arr = [], noColumn = 0, i
+        each(chart.series, function(otherSeries) {
+            each(otherSeries.data, function(dat) {
+                if (dat.series.visible)
+                    arr[dat.x] = true
+            })
+        })
+		// calculate the actual number of columns
+        for (i in arr)
+            noColumn++
+
 		var data = series.data,
 			closestPoints = series.closestPoints,
 			categoryWidth = mathAbs(
-				data[1] ? data[closestPoints].plotX - data[closestPoints - 1].plotX :
-				chart.plotSizeX / ((categories && categories.length) || 1)
+				chart.plotSizeX / ((categories && categories.length) || noColumn || 1)
 			),
 			groupPadding = categoryWidth * options.groupPadding,
 			groupWidth = categoryWidth - 2 * groupPadding,
