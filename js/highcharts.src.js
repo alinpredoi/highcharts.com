@@ -2796,7 +2796,11 @@ SVGRenderer.prototype = {
 			}
 
 		// default circles
+<<<<<<< HEAD
 		} else if(synmbol == 'q-mark'){
+=======
+		} else if(symbol == 'q-mark'){
+>>>>>>> 8ffff55... q-mark symbol add
 			return this.text('?', x-radius, y-radius);
 		} else{
 			obj = this.circle(x, y, radius);
