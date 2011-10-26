@@ -9799,7 +9799,9 @@ Series.prototype = {
 					dataLabel.align(options, null,
 						{
 							x: inverted ? chart.plotWidth - barY - barH : barX,
-							y: inverted ? chart.plotHeight - barX - barW : barY,
+							//y: inverted ? chart.plotHeight - barX - barW : barY,
+							//Hide datalabels if stack is smaller than font
+                                                        y: (barH < 15)?-999:(inverted ? chart.plotHeight - barX - barW : barY), 
 							width: inverted ? barH : barW,
 							height: inverted ? barW : barH
 						});
